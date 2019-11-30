@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="4.0.0-alpha03" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DynamicsApi\" />
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
+</Project>
