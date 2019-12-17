@@ -5,13 +5,12 @@ namespace CloudAwesome.PortalTestFramework
 {
     public class Portal
     {
-        public Portal()
+        public Portal(PortalConfiguration configuration)
         {
-            // Any constructor required?
+            // Implement
         }
 
-
-        public bool Login(PortalConfiguration configuration)
+        public bool Login()
         {
             // Implement
             return true;

@@ -8,5 +8,6 @@ namespace CloudAwesome.PortalTestFramework.Models
     {
         public UserCredentials UserCredentials { get; set; }
         public String BaseUrl { get; set; }
+        public BrowserSettings BrowserSettings { get; set; }
     }
 }

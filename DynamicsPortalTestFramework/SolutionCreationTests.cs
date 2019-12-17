@@ -1,16 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 using CloudAwesome.PortalTestFramework;
 using CloudAwesome.PortalTestFramework.Models;
 
 namespace CloudAwesome.PortalTests
 {
-    [TestClass]
-    public class UnitTest1
+    [TestFixture]
+    public class SolutionCreationTests
     {
 
-        [TestMethod]
-        [TestCategory("Initial Project Creation")]
+        [Test]
+        [Category("Initial Project Creation")]
         public void FirstTestDuringSetUp()
         {
             var config = new PortalConfiguration()
@@ -20,13 +20,17 @@ namespace CloudAwesome.PortalTests
                 {
                     UserName = "pedro@user.test",
                     UserPassword = "PassWord123",
-                    AuthenticationType = AuthenticationType.ActiveDirectory
+                    AuthenticationType = AuthenticationType.Local
+                },
+                BrowserSettings = new BrowserSettings()
+                {
+                    BrowserType = BrowserType.Firefox
                 }
             };
-            
+
             // Arrange
-            var portal = new Portal();
-            portal.Login(config);
+            var portal = new Portal(config);
+            portal.Login();
 
             // Act
             var result = 
