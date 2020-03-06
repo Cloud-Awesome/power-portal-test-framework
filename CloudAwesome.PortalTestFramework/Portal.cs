@@ -26,10 +26,10 @@ namespace CloudAwesome.PortalTestFramework
         {
             // TODO - use the wrapper methods in this class for all of these direct calls to _driver and Thread.Sleep
             // Don't use direct calls
-            _driver.Navigate().GoToUrl($"{_driver.Url}signin");
-            _driver.FindElement(By.Id("Username")).SendKeys(_config.UserCredentials.UserName);
-            _driver.FindElement(By.Id("Password")).SendKeys(_config.UserCredentials.UserPassword);
-            _driver.FindElement(By.Id("submit-signin-local")).Click();
+            _driver.Navigate().GoToUrl($"{_driver.Url}{LoginPage.PageUrl}");
+            _driver.FindElement(By.Id(LoginPage.UserName)).SendKeys(_config.UserCredentials.UserName);
+            _driver.FindElement(By.Id(LoginPage.Password)).SendKeys(_config.UserCredentials.UserPassword);
+            _driver.FindElement(By.Id(LoginPage.LocalSubmitButton)).Click();
             Thread.Sleep(1000);
             
             return true;
