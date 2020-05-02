@@ -46,13 +46,13 @@ namespace CloudAwesome.PortalTests
             // Act
             var result = 
                 portal
-                .SetValue("test", "testValue")
-                .Click("submit")
-                .Wait(1000)
-                .GetValue("testElement");
+                    .SetValue("awe_forename", "Arthur")
+                    .Click("submit")
+                    .Wait(1000)
+                    .GetValue("awe_name");
 
             // Assert
-            Assert.AreEqual("Test Response", result, 
+            Assert.AreEqual("Arthur's Record", result, 
                 "Test result is happy ;)");
 
             //TODO - Extract this out into a generic teardown method so doesn't need to be in every test class?
