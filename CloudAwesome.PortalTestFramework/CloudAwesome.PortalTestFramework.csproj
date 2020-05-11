@@ -53,6 +53,7 @@
     <Compile Include="Models\LoginPage.cs" />
     <Compile Include="Models\PersonaDefinition.cs" />
     <Compile Include="Models\PortalConfiguration.cs" />
+    <Compile Include="Models\SupportPage.cs" />
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Portal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

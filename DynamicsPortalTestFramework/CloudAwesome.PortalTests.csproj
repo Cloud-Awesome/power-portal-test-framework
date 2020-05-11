@@ -52,15 +52,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Samples\CaseManagement\OpenNewCase.cs" />
+    <Compile Include="Samples\Login\InvalidCredentials.cs" />
+    <Compile Include="Samples\Login\LoginTests.cs" />
+    <Compile Include="Samples\Profile\ProfileTests.cs" />
     <Compile Include="SolutionCreationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataModel\" />
-    <Folder Include="Samples\CaseManagement\" />
     <Folder Include="Samples\Forums\" />
-    <Folder Include="Samples\Login\" />
-    <Folder Include="Samples\Profile\" />
     <Folder Include="Samples\SetUpAndTearDown\" />
   </ItemGroup>
   <ItemGroup>

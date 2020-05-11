@@ -128,9 +128,9 @@ namespace CloudAwesome.PortalTestFramework
             return this;
         }
 
-        public Portal ClickByLinkText(string LinkText)
+        public Portal ClickByLinkText(string linkText)
         {
-            _driver.FindElement(By.LinkText(LinkText)).Click();
+            _driver.FindElement(By.LinkText(linkText)).Click();
             return this;
         }
 

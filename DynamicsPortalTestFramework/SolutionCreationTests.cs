@@ -1,7 +1,4 @@
-﻿using System.Configuration;
-using System.Linq;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using CloudAwesome.PortalTestFramework;
 using CloudAwesome.PortalTestFramework.Models;
