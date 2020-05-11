@@ -19,7 +19,11 @@ namespace CloudAwesome.PortalTestFramework
 
             _driver = new FirefoxDriver();
             this.Navigate(_config.BaseUrl);
-            //_driver.Navigate().GoToUrl(_config.BaseUrl);
+        }
+
+        public string GetCurrentUrl()
+        {
+            return _driver.Url;
         }
 
         public bool Login()
@@ -36,7 +40,8 @@ namespace CloudAwesome.PortalTestFramework
 
             //TODO - general helper: wrap FindElement By.Id to throw a good error if element not found
             //TODO - general helper: single(?) resx or class of magic strings for IDs and CSS classes
-            //TODO - Portals are charged per login - think about extracting this out into a single static login, somehow...
+            //TODO - If the user is a Portal Admin, get rid of the Admin toolbar? (unfortunately reappears on every page load...)
+
         }
 
         public bool Logout()
@@ -52,15 +57,30 @@ namespace CloudAwesome.PortalTestFramework
             //TODO Click by ID; Click by CSS ClassName; Selector; Click by Title; Click by Href; Link Text; XPath; 
         }
 
+        public Portal ClickByClassName(string className)
+        {
+            _driver.FindElement(By.ClassName(className)).Click();
+            return this;
+        }
+
+        public Portal ClickByLinkText(string LinkText)
+        {
+            _driver.FindElement(By.LinkText(LinkText)).Click();
+            return this;
+        }
+
         public Portal Wait(int milliseconds)
         {
             Thread.Sleep(milliseconds);
             return this;
         }
 
-        public Portal Navigate(string Url)
+        public Portal Navigate(string url)
         {
-            _driver.Navigate().GoToUrl($"{_driver.Url}{Url}");
+            _driver.Navigate().GoToUrl(url == _config.BaseUrl ? 
+                $"{url}" : 
+                $"{_driver.Url}{url}");
+
             return this;
 
             //TODO - Include an Assert if navigation fails
@@ -72,13 +92,14 @@ namespace CloudAwesome.PortalTestFramework
             _driver.FindElement(By.Id(element)).SendKeys(value);
             return this;
 
+            //TODO - Assert.Fail if can't find element
             //TODO - Data types: String; lookup; datetime; option set; currency; tickbox
             //TODO - Extract FindElement(By....) to enable multiple selectors for each method (SetValue, GetValue, Click, Clear, etc...)
         }
 
         public string GetValue(string element)
         {
-            return _driver.FindElement(By.Id(element)).Text;
+            return _driver.FindElement(By.Id(element)).GetAttribute("value");
         }
 
         public Portal Clear(string element)
@@ -94,6 +115,16 @@ namespace CloudAwesome.PortalTestFramework
 
             //TODO - wrap some of the Assert methods to permit fluent chaining
             // ^^ Not best practice in unit testing, but perhaps useful in UI tests to gracefully fail when something is wrong?
+        }
+
+        public bool IsEnabled(string element)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsDisplayed(string element)
+        {
+            throw new NotImplementedException();
         }
 
         public string GetElementDetail(string element)
