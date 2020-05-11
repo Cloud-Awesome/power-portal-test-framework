@@ -1,10 +1,16 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+
 
 using CloudAwesome.PortalTestFramework.Models;
+
 
 namespace CloudAwesome.PortalTestFramework
 {
@@ -17,6 +23,33 @@ namespace CloudAwesome.PortalTestFramework
         {
             _config = configuration;
 
+            switch (_config.BrowserSettings.BrowserType)
+            {
+                case BrowserType.Chrome:
+                    var chromeOptions = new ChromeOptions();
+                    if (_config.BrowserSettings.Headless)
+                    {
+                        chromeOptions.AddArguments("headless");
+                    }
+
+                    _driver = new ChromeDriver(chromeOptions);
+                    break;
+                case BrowserType.Firefox:
+                    var firefoxOptions = new FirefoxOptions();
+                    if (_config.BrowserSettings.Headless)
+                    {
+                        firefoxOptions.AddArguments("--headless");
+                    }
+
+                    _driver = new FirefoxDriver(firefoxOptions);
+                    break;
+                case BrowserType.Edge:
+                    _driver = new EdgeDriver();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             _driver = new FirefoxDriver();
             this.Navigate(_config.BaseUrl);
         }
@@ -28,13 +61,36 @@ namespace CloudAwesome.PortalTestFramework
 
         public bool Login()
         {
-            // TODO - use the wrapper methods in this class for all of these direct calls to _driver and Thread.Sleep
-            // Don't use direct calls
-            _driver.Navigate().GoToUrl($"{_driver.Url}{LoginPage.PageUrl}");
-            _driver.FindElement(By.Id(LoginPage.UserName)).SendKeys(_config.UserCredentials.UserName);
-            _driver.FindElement(By.Id(LoginPage.Password)).SendKeys(_config.UserCredentials.UserPassword);
-            _driver.FindElement(By.Id(LoginPage.LocalSubmitButton)).Click();
-            Thread.Sleep(1000);
+            switch (_config.UserCredentials.AuthenticationType)
+            {
+                case AuthenticationType.Local:
+                    // TODO - use the wrapper methods in this class for all of these direct calls to _driver and Thread.Sleep
+                    // Don't use direct Selenium calls
+                    _driver.Navigate().GoToUrl($"{_driver.Url}{LoginPage.PageUrl}");
+                    _driver.FindElement(By.Id(LoginPage.UserName)).SendKeys(_config.UserCredentials.UserName);
+                    _driver.FindElement(By.Id(LoginPage.Password)).SendKeys(_config.UserCredentials.UserPassword);
+                    _driver.FindElement(By.Id(LoginPage.LocalSubmitButton)).Click();
+                    Thread.Sleep(1000);
+
+                    break;
+
+                case AuthenticationType.ActiveDirectory:
+                    _driver.Navigate().GoToUrl($"{_driver.Url}{LoginPage.PageUrl}");
+                    _driver.FindElement(By.Name("Azure AD")).Click();
+                    // ?? How best to handle using the MS login page......
+
+                    throw new NotImplementedException("Only Local Authentication is currently supported");
+                    
+                case AuthenticationType.Facebook:
+                    throw new NotImplementedException("Only Local Authentication is currently supported");
+
+                case AuthenticationType.Google:
+                    throw new NotImplementedException("Only Local Authentication is currently supported");
+
+                default:
+                    throw new NotImplementedException("Only Local Authentication is currently supported");
+
+            }
             
             return true;
 
@@ -55,6 +111,15 @@ namespace CloudAwesome.PortalTestFramework
             return this;
 
             //TODO Click by ID; Click by CSS ClassName; Selector; Click by Title; Click by Href; Link Text; XPath; 
+            //
+            //public Portal Click(By by)
+            //{
+            //    _driver.FindElement(by).Click();
+            //    return this;
+            //}
+            //
+            // Something like this ^^ but preferably not needing a reference to OpenQA in the test classes...
+            // Probably no point in recreating the By.cs that is already provided if possible...
         }
 
         public Portal ClickByClassName(string className)

@@ -55,6 +55,38 @@ namespace CloudAwesome.PortalTests
 
         [Test]
         [Category("Initial Project Creation")]
+        [Description("User can update their Nickname in the profile")]
+        [Ignore("Test authoring is in progress...")]
+        public void UserCanUpdateNickname()
+        {
+            var config = new PortalConfiguration("arthur");
+
+            // Arrange
+            var portal = new Portal(config);
+            if (!portal.Login())
+            {
+                Assert.Fail("Failed to authenticate");
+            }
+
+            var oldNickName =
+                portal
+                    .ClickByLinkText("Close") // close the Admin floating menu
+                    .ClickByClassName("username")
+                    .ClickByLinkText("Profile")
+                    .Wait(2000)
+                    .GetValue("nickname");
+
+            // TODO - write test
+            // Set new nick name
+            // Submit
+            // Refresh
+            // Get and assert
+            // Reset to original nickname and assert
+
+        }
+
+        [Test]
+        [Category("Initial Project Creation")]
         [Description("User can navigate to their profile and read email address")]
         public void NavigateToProfileFromHeader()
         {
@@ -76,7 +108,8 @@ namespace CloudAwesome.PortalTests
                     .GetCurrentUrl();
 
             var profileEmailAddress =
-                portal.GetValue("emailaddress1");
+                portal
+                    .GetValue("emailaddress1");
 
             Assert.AreEqual($"{config.BaseUrl}profile/", profileUrl);
             Assert.AreEqual("arthur@cloudawesome.yxz", profileEmailAddress);
@@ -86,7 +119,7 @@ namespace CloudAwesome.PortalTests
 
         [Test]
         [Category("Initial Project Creation")]
-        [Ignore("Test writing is in progress...")]
+        [Ignore("Test authoring is in progress...")]
         public void FirstTestDuringSetUp()
         {
             #region actions to do 

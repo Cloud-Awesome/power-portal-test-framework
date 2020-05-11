@@ -34,10 +34,12 @@ namespace CloudAwesome.PortalTestFramework.Models
         {
             BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
+            bool.TryParse(ConfigurationManager.AppSettings["RunBrowserHeadless"], out bool runHeadless);
             BrowserSettings = new BrowserSettings()
             {
                 BrowserType = (BrowserType)Enum.Parse(typeof(BrowserType),
-                    ConfigurationManager.AppSettings["BrowserType"])
+                    ConfigurationManager.AppSettings["BrowserType"]),
+                Headless = runHeadless
             };
         }
 
