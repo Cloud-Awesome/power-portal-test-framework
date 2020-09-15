@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 
-namespace CloudAwesome.PortalTestFramework.Models
+namespace CloudAwesome.D365Portal.TestFramework.Models
 {
     public class PortalConfiguration
     {

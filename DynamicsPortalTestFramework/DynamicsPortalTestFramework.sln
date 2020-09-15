@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.PortalTests", "CloudAwesome.PortalTests.csproj", "{430BB1BD-3BA3-4740-B584-54692C00D379}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.PortalTestFramework", "..\CloudAwesome.PortalTestFramework\CloudAwesome.PortalTestFramework.csproj", "{4EDBBDF9-FE9F-4C0E-9B40-72B00CAD18B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudAwesome.D365Portal.TestFramework", "..\CloudAwesome.PortalTestFramework\CloudAwesome.D365Portal.TestFramework.csproj", "{4EDBBDF9-FE9F-4C0E-9B40-72B00CAD18B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

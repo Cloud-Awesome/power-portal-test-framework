@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace CloudAwesome.PortalTestFramework.Models
+namespace CloudAwesome.D365Portal.TestFramework.Models
 {
     public class PersonaDefinition: ConfigurationSection
     {

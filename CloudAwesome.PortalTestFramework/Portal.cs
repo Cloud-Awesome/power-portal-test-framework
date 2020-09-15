@@ -2,17 +2,14 @@
 using System.IO;
 using System.Reflection;
 using System.Threading;
-
+using CloudAwesome.D365Portal.TestFramework.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 
 
-using CloudAwesome.PortalTestFramework.Models;
-
-
-namespace CloudAwesome.PortalTestFramework
+namespace CloudAwesome.D365Portal.TestFramework
 {
     public class Portal
     {

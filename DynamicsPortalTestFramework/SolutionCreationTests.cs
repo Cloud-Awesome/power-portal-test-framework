@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 
-using CloudAwesome.PortalTestFramework;
-using CloudAwesome.PortalTestFramework.Models;
+using CloudAwesome.D365Portal.TestFramework;
+using CloudAwesome.D365Portal.TestFramework.Models;
 
 namespace CloudAwesome.PortalTests
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudAwesome.PortalTestFramework.Models
+namespace CloudAwesome.D365Portal.TestFramework.Models
 {
     public static class SupportPage
     {

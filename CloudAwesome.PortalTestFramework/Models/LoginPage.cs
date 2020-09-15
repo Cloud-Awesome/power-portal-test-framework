@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CloudAwesome.PortalTestFramework.Models
+namespace CloudAwesome.D365Portal.TestFramework.Models
 {
     public static class LoginPage
     {

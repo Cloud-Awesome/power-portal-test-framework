@@ -1,4 +1,4 @@
-﻿namespace CloudAwesome.PortalTestFramework.Models
+﻿namespace CloudAwesome.D365Portal.TestFramework.Models
 {
     // Currently only Firefox is supported
     // (Phantom will come second)

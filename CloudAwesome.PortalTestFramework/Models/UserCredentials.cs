@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Collections.Generic;
 
-namespace CloudAwesome.PortalTestFramework.Models
+namespace CloudAwesome.D365Portal.TestFramework.Models
 {
     public enum AuthenticationType
     {

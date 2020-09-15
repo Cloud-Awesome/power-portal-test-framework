@@ -70,9 +70,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CloudAwesome.PortalTestFramework\CloudAwesome.PortalTestFramework.csproj">
+    <ProjectReference Include="..\CloudAwesome.PortalTestFramework\CloudAwesome.D365Portal.TestFramework.csproj">
       <Project>{4edbbdf9-fe9f-4c0e-9b40-72b00cad18b1}</Project>
-      <Name>CloudAwesome.PortalTestFramework</Name>
+      <Name>CloudAwesome.D365Portal.TestFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
