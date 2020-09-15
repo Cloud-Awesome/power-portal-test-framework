@@ -122,6 +122,7 @@ namespace CloudAwesome.PortalTests
             #region actions to do 
             //TODO - Support for multiple browsers
             //TODO - Initialisation helper - set up and tear down of local user account
+            //TODO - Provide several different base classes, e.g. LoginAndQuitAfterTest(personaName), BasePortalTest()
             // Each class should be as test small as possible and include as little set up as possible.
             // ^^ On average, 10-20 lines max. would be great :)
             #endregion actions to do
