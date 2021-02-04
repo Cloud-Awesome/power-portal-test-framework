@@ -1,6 +1,8 @@
 # CloudAwesome.PortalTestFramework
 
-Fluent API to test Dynamics Portals. Supports multiple personas for BDD testing.
+Fluent API to test MS Power Apps Portals. Supports multiple personas (user accounts) in config to allow testing of different security roles and scenarios.
+
+Can use in conjunction with CloudAwesome.Xrm.Core to set up/tear down scenario data and query/assert appropriate outcomes in CDS.
 
 ```csharp
 [Test]
