@@ -3,7 +3,7 @@
     /// <summary>
     /// Not implemented yet
     /// </summary>
-    public class EntityForm
+    public class Validator
     {
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CloudAwesome.PowerPortal.TestFramework
+﻿namespace CloudAwesome.PowerPortal.TestFramework
 {
+    /// <summary>
+    /// Not implemented yet
+    /// </summary>
     public class WebForm
     {
     }

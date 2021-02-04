@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using CloudAwesome.PowerPortal.TestFramework.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
+//using OpenQA.Selenium.Edge;
+using Microsoft.Edge.SeleniumTools;
 
 namespace CloudAwesome.PowerPortal.TestFramework
 {
@@ -27,6 +29,7 @@ namespace CloudAwesome.PowerPortal.TestFramework
                     }
 
                     _driver = new ChromeDriver(chromeOptions);
+                    
                     break;
                 case BrowserType.Firefox:
                     var firefoxOptions = new FirefoxOptions();
@@ -36,15 +39,26 @@ namespace CloudAwesome.PowerPortal.TestFramework
                     }
 
                     _driver = new FirefoxDriver(firefoxOptions);
+                    
                     break;
                 case BrowserType.Edge:
-                    _driver = new EdgeDriver();
+
+                    var edgeOptions = new EdgeOptions();
+                    edgeOptions.UseChromium = true;
+
+                    if (_config.BrowserSettings.Headless)
+                    {
+                        edgeOptions.AddArguments("headless");
+                    }
+
+                    _driver = new EdgeDriver(edgeOptions);
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            _driver = new FirefoxDriver();
+            //_driver = new FirefoxDriver();
             this.Navigate(_config.BaseUrl);
         }
 
@@ -99,9 +113,14 @@ namespace CloudAwesome.PowerPortal.TestFramework
             throw new NotImplementedException();
         }
 
-        public Portal Click(string element)
+        public Portal Click(string element, int waitTime = 0)
         {
             _driver.FindElement(By.Id(element)).Click();
+            if (waitTime > 0)
+            {
+                this.Wait(waitTime);
+            }
+
             return this;
 
             //TODO Click by ID; Click by CSS ClassName; Selector; Click by Title; Click by Href; Link Text; XPath; 
@@ -116,15 +135,23 @@ namespace CloudAwesome.PowerPortal.TestFramework
             // Probably no point in recreating the By.cs that is already provided if possible...
         }
 
-        public Portal ClickByClassName(string className)
+        public Portal ClickByClassName(string className, int waitTime = 0)
         {
             _driver.FindElement(By.ClassName(className)).Click();
+            if (waitTime > 0)
+            {
+                this.Wait(waitTime);
+            }
             return this;
         }
 
-        public Portal ClickByLinkText(string linkText)
+        public Portal ClickByLinkText(string linkText, int waitTime = 0)
         {
             _driver.FindElement(By.LinkText(linkText)).Click();
+            if (waitTime > 0)
+            {
+                this.Wait(waitTime);
+            }
             return this;
         }
 
@@ -134,11 +161,16 @@ namespace CloudAwesome.PowerPortal.TestFramework
             return this;
         }
 
-        public Portal Navigate(string url)
+        public Portal Navigate(string url, int waitTime = 0)
         {
             _driver.Navigate().GoToUrl(url == _config.BaseUrl ? 
                 $"{url}" : 
                 $"{_driver.Url}{url}");
+
+            if (waitTime > 0)
+            {
+                this.Wait(waitTime);
+            }
 
             return this;
 
@@ -174,6 +206,18 @@ namespace CloudAwesome.PowerPortal.TestFramework
 
             //TODO - wrap some of the Assert methods to permit fluent chaining
             // ^^ Not best practice in unit testing, but perhaps useful in UI tests to gracefully fail when something is wrong?
+        }
+
+        public Portal ValidatePage<T>(List<T> validators)
+        {
+            // Doesn't do anything yet ;)
+            return this;
+        }
+
+        public Portal ValidatePage(List<Validator> validators)
+        {
+            // Doesn't do anything yet ;)
+            return this;
         }
 
         public bool IsEnabled(string element)

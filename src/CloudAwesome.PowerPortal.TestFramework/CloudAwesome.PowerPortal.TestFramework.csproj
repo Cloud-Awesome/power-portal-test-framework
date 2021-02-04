@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Edge.SeleniumTools, Version=3.141.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Edge.SeleniumTools.3.141.2\lib\net45\Microsoft.Edge.SeleniumTools.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -59,7 +62,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting.cs" />
     <Compile Include="Subgrid.cs" />
-    <Compile Include="Validators.cs" />
+    <Compile Include="Validator.cs" />
     <Compile Include="WebForm.cs" />
   </ItemGroup>
   <ItemGroup>

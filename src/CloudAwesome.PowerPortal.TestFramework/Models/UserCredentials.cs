@@ -1,12 +1,10 @@
-﻿using System;
-using System.Configuration;
-using System.Collections.Generic;
+﻿using System.Configuration;
 
 namespace CloudAwesome.PowerPortal.TestFramework.Models
 {
     public enum AuthenticationType
     {
-        ActiveDirectory, Local, Facebook, Google
+        ActiveDirectory, ActiveDirectoryB2C, Local, Facebook, Google
     }
 
     public class UserCredentials: ConfigurationElement

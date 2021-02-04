@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CloudAwesome.PowerPortal.TestFramework.Models
+﻿namespace CloudAwesome.PowerPortal.TestFramework.Models
 {
     public static class LoginPage
     {

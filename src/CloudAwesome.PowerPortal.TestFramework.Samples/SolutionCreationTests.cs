@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using CloudAwesome.PowerPortal.TestFramework.Models;
 
 namespace CloudAwesome.PowerPortal.TestFramework.Samples
@@ -14,8 +15,7 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
             var config = new PortalConfiguration("arthur");
 
             Assert.AreEqual("arthur", config.UserCredentials.UserName);
-            Assert.AreEqual("https://awesome-sandbox.microsoftcrmportals.com/", config.BaseUrl);
-            //Assert.AreEqual();
+            Assert.AreEqual("https://awesome-portal.powerappsportals.com/", config.BaseUrl);
         }
 
         [Test]
@@ -29,6 +29,7 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
             var portal = new Portal(config);
             if (!portal.Login())
             {
+                portal.Quit();
                 Assert.Fail("Failed to authenticate");
             }
 
@@ -37,6 +38,70 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
 
             portal.Quit();
         }
+
+        [Test]
+        public void WalksThroughContactDetailsInGdsPortal()
+        {
+            const int standardWaitTime = 2000;
+            var config = new PortalConfiguration("arthur");
+
+            var portal = new Portal(config);
+            if (!portal.Login())
+            {
+                portal.Quit();
+                Assert.Fail("Failed to authenticate");
+            }
+            
+            var actionUrl =
+                portal.Navigate("task-list", standardWaitTime)
+                    .ClickByLinkText("Contact details")
+                    .Click("UpdateButton", standardWaitTime)
+                    .Clear("telephone2")
+                    .Clear("telephone1")
+                    .SetValue("telephone2", "0131 618 618 4")
+                    .SetValue("telephone1", "07789 456 123")
+                    .ValidatePage(
+                        new List<Assert>()
+                        {
+                            // ... Not like this obv., but you get the idea ;)
+                        })
+                    .Click("UpdateButton", standardWaitTime)
+                    .Clear("emailaddress2")
+                    .SetValue("emailaddress2", "myemailaddress@personal.test")
+                    .Click("UpdateButton", standardWaitTime)
+                    .Click("UpdateButton", standardWaitTime)
+                    .Click("UpdateButton", standardWaitTime)
+                    .GetCurrentUrl();
+
+            var signedOutUrl =
+                portal
+                    .ClickByLinkText("Close") // Shouldn't be required!
+                                              // This is just if you're logged in as an Admin.
+                                              // Tests shouldn't normally be run as Admins ;)
+                    .ClickByLinkText("Sign Out", standardWaitTime)
+                    .GetCurrentUrl();
+
+            portal.Quit();
+
+            Assert.AreEqual("https://awesome-portal.powerappsportals.com/task-list/", actionUrl);
+            Assert.AreEqual("https://awesome-portal.powerappsportals.com/", signedOutUrl);
+
+
+            /*
+             * TODO - Actions....
+             * 2. Implement SetValue for other data types than string ;)
+             * 3. Extract the common set up into a base class...
+             * 4. Add helpers to extract magic strings etc...
+             * 5. Add other test functions that allow you to 
+             * 6. How to handle if an element doesn't exist
+             * 7. Implement a ClickIfExists? (e.g. for the Admin dialog)
+             */
+
+        }
+
+
+
+        #region Ignored Tests
 
         [Test]
         [Category("Initial Project Creation")]
@@ -83,6 +148,7 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
         [Test]
         [Category("Initial Project Creation")]
         [Description("User can navigate to their profile and read email address")]
+        [Ignore("Ignored while working with sample GDS portal")]
         public void NavigateToProfileFromHeader()
         {
             var config = new PortalConfiguration("arthur");
@@ -91,6 +157,7 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
             var portal = new Portal(config);
             if (!portal.Login())
             {
+                portal.Quit();
                 Assert.Fail("Failed to authenticate");
             }
 
@@ -114,7 +181,7 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
 
         [Test]
         [Category("Initial Project Creation")]
-        [Ignore("Test authoring is in progress...")]
+        [Ignore("Ignored while working with sample GDS portal")]
         public void FirstTestDuringSetUp()
         {
             #region actions to do 
@@ -131,13 +198,14 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
             if (!portal.Login())
             {
                 //TODO - extract this out into the Login method, not in the test class
+                portal.Quit();
                 Assert.Fail("Failed to authenticate");
             }
 
             // Act
             var result = 
                 portal
-                    .SetValue("firstname", "Arthur") // TODO - Extract magic strings out into DataModel
+                    .SetValue("firstname", "Arthur") // TODO - Extract magic strings out into overridable DataModel
                     .SetValue("lastname", "Nicholson-Gumuła")
                     .Click("submit")
                     .Wait(1000)
@@ -150,5 +218,7 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
             portal.Quit();
 
         }
+
+        #endregion Ignored Tests
     }
 }
