@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>CloudAwesome.PowerPortal.TestFramework</id>
+    <version>1.0.0</version>
+    <authors>Arthur Nicholson-Gumuła (@arthur82)</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/Cloud-Awesome/power-portal-test-framework/issues</projectUrl>
+    <description>Fluent API to test Power Apps Portals. Supports multiple personas for BDD testing.</description>
+    <releaseNotes>See changelog at https://github.com/Cloud-Awesome/power-portal-test-framework/releases</releaseNotes>
+    <copyright>Cloud Awesome Limited 2020</copyright>
+    <tags>Dynamics365 PowerPlatform PowerApps Portal DataVerse Cds</tags>
+    <repository type="GitHub" url="https://github.com/Cloud-Awesome/power-portal-test-framework" />
+    <dependencies />
+  </metadata>
+</package>

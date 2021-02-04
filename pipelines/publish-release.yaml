@@ -1,0 +1,52 @@
+name: $(Year:yyyy).$(Month).$(DayOfMonth).$(Rev:r)
+
+pool:
+  vmImage: 'windows-latest'
+
+trigger: none
+
+steps:
+
+- task: NuGetCommand@2
+  displayName: Restore NuGet
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
+
+- task: VSBuild@1
+  displayName: Build Solution
+  inputs:
+    solution: '**\*.sln'
+    configuration: 'release'
+
+- task: NuGetCommand@2
+  displayName: Nuget Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/CloudAwesome.PowerPortal.TestFramework.csproj'
+    configuration: 'release'
+    versioningScheme: 'byBuildNumber'
+
+- task: GitHubRelease@1
+  displayName: Create GitHub Release with ChangeLog
+  inputs:
+    gitHubConnection: 'GitHubReleaseConnection'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'userSpecifiedTag'
+    tag: '$(Build.BuildNumber)'
+    title: '$(Build.BuildNumber)'
+    releaseNotesSource: 'inline'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'issueBased'
+    changeLogLabels: '[{ "label" : "enhancement", "displayName" : "New features", "state" : "closed" }, { "label" : "bug", "displayName" : "Bugs fixed", "state" : "closed" }, { "label" : "documentation", "displayName" : "Documentation added", "state" : "closed" }]'
+    
+- task: NuGetCommand@2
+  displayName: Nuget Push
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'powerportal.testframework'
