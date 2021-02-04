@@ -1,4 +1,4 @@
-# CloudAwesome.PortalTestFramework
+# CloudAwesome.PowerPortal.TestFramework
 
 Fluent API to test MS Power Apps Portals. Supports multiple personas (user accounts) in config to allow testing of different security roles and scenarios.
 
