@@ -61,9 +61,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataModel\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include=".runsettings" />
     <None Include="App.config" />
     <None Include="packages.config" />

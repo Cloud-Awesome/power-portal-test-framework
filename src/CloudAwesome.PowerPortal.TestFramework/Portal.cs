@@ -7,6 +7,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
 //using OpenQA.Selenium.Edge;
 using Microsoft.Edge.SeleniumTools;
+using OpenQA.Selenium.Html5;
 
 namespace CloudAwesome.PowerPortal.TestFramework
 {
@@ -199,6 +200,16 @@ namespace CloudAwesome.PowerPortal.TestFramework
             return this;
         }
 
+        public String GetLocalStorageValue(string key)
+        {
+            // var javaScriptExecutor = _driver as IJavaScriptExecutor;
+            // var localStorageValue = (string)javaScriptExecutor.ExecuteScript("localStorage.get('theValue')");
+            //
+            // return localStorageValue;
+            
+            throw new NotImplementedException();
+        }
+
         public Portal Assert()
         {
             //Assert.AreEqual...
@@ -208,15 +219,31 @@ namespace CloudAwesome.PowerPortal.TestFramework
             // ^^ Not best practice in unit testing, but perhaps useful in UI tests to gracefully fail when something is wrong?
         }
 
-        public Portal ValidatePage<T>(List<T> validators)
+        public Portal ValidatePage(bool allValidators, Action<string> onError, Action<string> onWarning)
         {
             // Doesn't do anything yet ;)
             return this;
         }
 
-        public Portal ValidatePage(List<Validator> validators)
+        public Portal ValidatePage(IEnumerable<IPageValidator> validators, Action<string> onError, Action<string> onWarning)
         {
-            // Doesn't do anything yet ;)
+            foreach (var validator in validators)
+            {
+                var validationOutput = validator.Execute();
+                switch (validationOutput.Status)
+                {
+                    case PageValidatorStatus.Warning:
+                        onWarning($"Warning: Validator {nameof(validator)} returned a warning: {validationOutput.Message}");
+                        break;
+                    case PageValidatorStatus.Error:
+                        onError($"Error: Validator {nameof(validator)} returned an error: {validationOutput.Message}");
+                        break;
+                    case PageValidatorStatus.Success:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
             return this;
         }
 
@@ -245,6 +272,17 @@ namespace CloudAwesome.PowerPortal.TestFramework
             //TODO - Select and attach file. What to return (bool? number of files attached? Support for multiple files?)
         }
 
+        /// <summary>
+        /// Returns the IDriver implementation for emergencies when you need control/functionality
+        /// that hasn't been implemented in the test framework. Breaks the fluency of the API.
+        /// (Feature requests are always appreciate though!) 
+        /// </summary>
+        /// <returns>IDriver implementation used in this portal context</returns>
+        public IWebDriver ReturnCurrentDriver()
+        {
+            return _driver;
+        }
+
         public void Quit()
         {
             _driver.Quit();
@@ -254,7 +292,7 @@ namespace CloudAwesome.PowerPortal.TestFramework
         //TODO - Helper function for /search/ pop out, including search filter
         //TODO - Work with Rich text editor, e.g. in /forums/general-discussion/ (CKE editor)
         //TODO - Handle back and forward browser buttons (and any others, e.g. F5? _driver.Navigate().Refresh())
-        //TODO - Verify cookie values? Cookie has been set, updated, etc..?
+        //TODO - Verify cookie values? Cookie has been set, updated, etc..? And the same for LocalStorage
         //TODO - Support for expanding async SPA queries, e.g. Case Deflection search (/support/)
         // (MVP Only supports Local auth; Add AD etc. Post-MVP...)
     }

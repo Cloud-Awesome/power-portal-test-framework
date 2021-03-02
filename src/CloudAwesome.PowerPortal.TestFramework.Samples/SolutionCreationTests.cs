@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using CloudAwesome.PowerPortal.TestFramework.Models;
+using CloudAwesome.PowerPortal.TestFramework.PageValidators;
 
 namespace CloudAwesome.PowerPortal.TestFramework.Samples
 {
@@ -51,7 +53,7 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
                 portal.Quit();
                 Assert.Fail("Failed to authenticate");
             }
-            
+
             var actionUrl =
                 portal.Navigate("task-list", standardWaitTime)
                     .ClickByLinkText("Contact details")
@@ -61,10 +63,14 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
                     .SetValue("telephone2", "0131 618 618 4")
                     .SetValue("telephone1", "07789 456 123")
                     .ValidatePage(
-                        new List<Assert>()
+                        // TODO - Probably want to validate every page, add option to include in PortalConfiguration?
+                        new List<IPageValidator>()
                         {
-                            // ... Not like this obv., but you get the idea ;)
-                        })
+                            new IsEnabled("tester"),
+                            new IsEnabled("tester2"),
+                            new ValidateHeaders(),
+                            new ValidateUrlFormat()
+                        }, Assert.Fail, Assert.Warn)
                     .Click("UpdateButton", standardWaitTime)
                     .Clear("emailaddress2")
                     .SetValue("emailaddress2", "myemailaddress@personal.test")
