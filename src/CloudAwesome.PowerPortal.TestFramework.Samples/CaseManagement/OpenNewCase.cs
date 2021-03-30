@@ -1,5 +1,6 @@
 ﻿using System;
 using CloudAwesome.PowerPortal.TestFramework.Models;
+using CloudAwesome.PowerPortal.TestFramework.PageModels;
 using NUnit.Framework;
 
 namespace CloudAwesome.PowerPortal.TestFramework.Samples.CaseManagement

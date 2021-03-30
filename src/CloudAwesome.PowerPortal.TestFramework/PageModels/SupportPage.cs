@@ -1,6 +1,6 @@
-﻿namespace CloudAwesome.PowerPortal.TestFramework.Models
+﻿namespace CloudAwesome.PowerPortal.TestFramework.PageModels
 {
-    public static class SupportPage
+    public abstract class SupportPage
     {
         public static string PageUrl => "support";
         public static string CreateNewCaseUrl => "/support/create-case/";

@@ -63,13 +63,13 @@ namespace CloudAwesome.PowerPortal.TestFramework.Samples
                     .SetValue("telephone2", "0131 618 618 4")
                     .SetValue("telephone1", "07789 456 123")
                     .ValidatePage(
-                        // TODO - Probably want to validate every page, add option to include in PortalConfiguration?
+                        // QUESTION - Probably want to validate every page, add option to include in PortalConfiguration?
                         new List<IPageValidator>()
                         {
-                            new IsEnabled("tester"),
-                            new IsEnabled("tester2"),
-                            new ValidateHeaders(),
-                            new ValidateUrlFormat()
+                            // new IsEnabled("awe_address"),
+                            // new IsEnabled("Continue"),
+                            // new ValidateHeaders(),
+                            // new ValidateUrlFormat()
                         }, Assert.Fail, Assert.Warn)
                     .Click("UpdateButton", standardWaitTime)
                     .Clear("emailaddress2")
