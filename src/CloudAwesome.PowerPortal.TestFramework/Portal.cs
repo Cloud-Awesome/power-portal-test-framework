@@ -6,9 +6,7 @@ using CloudAwesome.PowerPortal.TestFramework.PageModels;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Chrome;
-//using OpenQA.Selenium.Edge;
-using Microsoft.Edge.SeleniumTools;
-using OpenQA.Selenium.Html5;
+using OpenQA.Selenium.Edge;
 
 namespace CloudAwesome.PowerPortal.TestFramework
 {
@@ -59,14 +57,31 @@ namespace CloudAwesome.PowerPortal.TestFramework
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            //_driver = new FirefoxDriver();
+            
             this.Navigate(_config.BaseUrl);
         }
 
         public string GetCurrentUrl()
         {
+            // TODO - return a Uri, instead of a string?
             return _driver.Url;
+        }
+
+        public string GetQueryStringParameter(string parameterName)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public Portal Maximise()
+        {
+            _driver.Manage().Window.Maximize();
+            return this;
+        }
+
+        public Portal ScrollToBottomOfPage()
+        {
+            ((IJavaScriptExecutor) _driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+            return this;
         }
 
         public bool Login()
@@ -117,6 +132,7 @@ namespace CloudAwesome.PowerPortal.TestFramework
 
         public Portal Click(string element, int waitTime = 0)
         {
+            
             _driver.FindElement(By.Id(element)).Click();
             if (waitTime > 0)
             {
